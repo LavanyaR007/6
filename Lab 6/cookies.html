@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 16px;
+
+}
+
+
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+/* Set a style for the submit button */
+.registerbtn {
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+input[type="color"] {
+            -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        width: 50px;
+        height: 60px;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+        }
+        </style>
+    </head>
+<body style="background-color:black; color:aliceblue">
+    
+    Background Colour:<input type="color"  value="black" id="bgcolor" onchange="setColor()" >
+            
+<form name = "myform" action = "">
+    Name: 
+    <input type = "text" name = "customer"/>
+    Email: <input type = "text" name = "email"/>
+    Password: <input type="password" name="password" id="password">
+    Phone Number: <input type="tel" name="phoneNumber" id="phoneNumber">
+    <br/><br/>Language
+    <select name="language" id="language">
+        <option value="">Select language</option>
+        <option value="English">English</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Arabic">Arabic</option>
+        <option value="Russian">Russian</option>
+    </select>
+    <br/><br>Zipcode
+    <input type="number" name="zipcode" id="zipcode">
+    <input type = "button" id="img" class="registerbtn" value = "Set Cookie" onclick = "WriteCookie();" style="background-image:url('a.png');"/>
+ 
+</form>
+
+    <input type = "button" value = "See Cookie" onclick = "ReadCookie()" >
+    <div class="table">
+        <table class="mt" id="table"></table>
+    </div>
+
+
+ <form name = "myform2" action = "">
+    Enter name: <input type = "text" name = "customer"/>
+    <input type = "button" value = "Remove Cookie" onclick = "RemoveCookie()"/>
+ </form> 
+ 
+<script>
+    function setColor() {
+            var someTime = "Thu, 22 Jan 2023 12:00:00 UTC"
+            var bgColor = document.getElementById('bgcolor').value;
+            document.body.style.backgroundColor = bgColor;
+            document.cookie = 'BgColor=' + bgColor + ";expires=" + someTime + ";path=/;"
+        }
+    
+        sessionStorage.setItem("Background image", "a.png");
+    //to store a cookie
+    function WriteCookie() {
+        
+        cookievalue = escape(document.myform.customer.value) + ";";
+        document.cookie = "Name=" + cookievalue ;
+
+        cookievalue = escape(document.myform.email.value) + ";";
+        document.cookie = "Email=" + cookievalue;
+
+        cookievalue = escape(document.myform.password.value) + ";";
+        document.cookie = "Password=" + cookievalue + "expires=Thu, 06 Dec 2023 12:00:00 UTC";
+
+        var phoneNumber= document.getElementById("phoneNumber");
+        localStorage.setItem("Phone Number", phoneNumber.value);
+        
+        var language= document.getElementById("language");
+        localStorage.setItem("Language", language.value);
+
+        var zipcode= document.getElementById("zipcode");
+        sessionStorage.setItem("zipcode", zipcode.value);
+        
+        
+    }
+    //to remove cookie
+    function RemoveCookie() {
+        var now = new Date();
+               now.setMonth( now.getMonth() - 1 );
+               cookievalue = escape(document.myform2.customer.value) + ";"
+               
+               document.cookie = "name=" + cookievalue;
+               document.cookie = "expires=" + now.toUTCString() + ";"
+               document.write("Setting Cookies : " + "name=" + cookievalue );
+    }
+    //to read cookie
+    function ReadCookie() {
+        var cookiesList = document.cookie.split(";")
+            var tbl = "<tr><th>Name</th><th>Value</th></tr>"
+            for (i = 0; i < cookiesList.length; i++) {
+                var cookieList = cookiesList[i].split("=");
+                for (j = 0; j < cookieList.length; j++) {
+                    if (j % 2 == 0)
+                        tbl += "<tr><td>" + cookieList[j] + "</td>"
+                    else
+                        tbl += "<td>" + cookieList[j] + "</td><tr>"
+                }
+            }
+            var table = document.getElementById('table')
+            table.innerHTML = tbl;
+            }
+
+    
+    </script>
+
+</body>
+</html>
